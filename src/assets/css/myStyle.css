@@ -1,7 +1,6 @@
 body {
-    background-color: #040;
-    background-image: url(../imgs/logo.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100vh;
+    background-color: #212121;
+    height: 100%; 
+    width: 100%; 
+    margin: 0;
 }

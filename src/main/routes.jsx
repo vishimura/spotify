@@ -1,20 +1,14 @@
 import React from 'react'
-import { Router, Route, Redirect, IndexRoute, hashHistory } from 'react-router'
+import {Router, Route, IndexRoute, Redirect, hashHistory} from 'react-router'
 
-// import App from './app'
-// import Home from '../home/home'
-// import Cadastrar from '../cadastrar/cadastrar'
-// import Cidade from '../cidade/cidade'
-// import Perfil from '../perfil/perfil'
+import App from './app'
+import Home from '../home/home'
 
-export default props => (
+export default props =>(
     <Router history={hashHistory}>
-        {/* <Route path='/' component={App}>
+        <Route path='/' component={App}>
             <IndexRoute component={Home} />
-            <Route path='cadastrar' component={Cadastrar} />
-            <Route path='cidade/:estado/:cidade' component={Cidade} />
-            <Route path='perfil/:user_id' component={Perfil} />
-        </Route> */}
+        </Route>
         <Redirect from='*' to='/' />
-    </Router>
+    </Router>  
 )
