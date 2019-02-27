@@ -6,12 +6,12 @@ import Typography from '@material-ui/core/Typography';
 
 
 export default props => (
-    <div>
-        <AppBar position="static" >
-            <Toolbar >
-                <Typography variant="h5" color="default">
+    <div style={{ flexGrow: 1 }}>
+        <AppBar position="static" style={{ alignItems: 'center', }}>
+            <Toolbar>
+                <Typography variant="title" color="default" style={{ fontSize: 35 }}>
                     Spotify
-                    </Typography>
+             </Typography>
             </Toolbar>
         </AppBar>
     </div>

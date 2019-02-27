@@ -10,41 +10,27 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Fab from '@material-ui/core/Fab';
+import Search from '@material-ui/icons/Search';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 import noImage from '../assets/imgs/spotify.png'
+import logo from '../assets/imgs/logo.png'
 
 const styles = theme => ({
-    card: {
-        display: 'flex',
+    fab: {
+      margin: theme.spacing.unit,
     },
-    details: {
-        display: 'flex',
-        flexDirection: 'column',
+    extendedIcon: {
+      marginRight: theme.spacing.unit,
     },
-    content: {
-        flex: '1 0 auto',
-    },
-    cover: {
-        width: 151,
-    },
-    controls: {
-        display: 'flex',
-        alignItems: 'center',
-        paddingLeft: theme.spacing.unit,
-        paddingBottom: theme.spacing.unit,
-    },
-    playIcon: {
-        height: 38,
-        width: 38,
-    },
-});
-
-
+  });
 
 class Home extends Component {
 
@@ -106,29 +92,13 @@ class Home extends Component {
     }
     renderArtistas() {
 
-        const list = this.props.artistas.artistas || []
+        const list = this.props.dadosApi || []
         const render = list.map(item => {
             return (
-                // <Card key={item.id}>
-                //     <CardContent >
-                //         <Typography component="h5" variant="h5">
-                //             {item.name}
-                //         </Typography>
-                //         <Typography variant="subtitle1" color="textSecondary">
-                //             <p><b>Genêro: </b>{item.genres ? item.genres.map(genero => `${genero}, `) : ''}</p>
-                //             <p><b>Popularidade: </b>{`${item.popularity} - ${this.criterioPopularity(item.popularity)}`}</p>
-                //         </Typography>
-                //     </CardContent>
-                //     <CardMedia
-                //         image={item.images[0] ? this.getUrlImage(item.images[0]) : ''}
-                //         title="Live from space album cover"
-                //     />
-                // </Card>
-
                 <Grid item xs={12} sm={4} md={4} lg={3} key={item.id}>
                     <Card>
                         <CardActionArea>
-                            <img src={item.images[0] ? this.getUrlImage(item.images[0]) : noImage } style={{ width: '100%' }} />
+                            <img src={item.images[0] ? this.getUrlImage(item.images[0]) : noImage} style={{ width: '100%' }} />
 
 
                             <CardContent>
@@ -150,56 +120,77 @@ class Home extends Component {
         return render
     }
     render() {
-
+        const { classes } = this.props;
         return (
-            <div>
-                <Grid container spacing={16}>
-                    <Grid item xs={12} style={{ flexGrow: 1 }} >
-                        <TextField
-                            id="filtro"
-                            label="Filtro"
-                            margin="normal"
-                            variant="outlined"
-                        />
-                        <TextField
-                            id="busca"
-                            label="Busca"
-                            margin="normal"
-                            variant="outlined"
-                            value={this.props.search.text}
-                            onChange={this.props.searchChanged}
-                        />
-                        <Button variant="contained" onClick={() => location.href = 'http://localhost:8888/login'} >
-                            Login
-                    </Button>
-                        <Button variant="contained" onClick={() => this.props.searchArtista(this.props.search.text, this.state.accessToken)} >
-                            Search
-                    </Button>
+
+            this.state.accessToken ?
+                <div>
+                    <Grid container justify='center' style={{ paddingTop: 15 }}>
+                        <Grid item xs={10}>
+                            <Paper elevation={1}>
+                                <Typography variant='title' align='center'>
+                                    Pesquisar
+                                </Typography>
+                                
+                                <TextField
+                                    id="filtro"
+                                    label="Filtro"
+                                    margin="normal"
+                                    variant="outlined"
+                                />
+                                <TextField
+                                    id="busca"
+                                    label="Busca"
+                                    margin="normal"
+                                    variant="outlined"
+                                    value={this.props.search.text}
+                                    onChange={this.props.searchChanged}
+                                />
+                                <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.props.searchArtista(this.props.search.text, this.state.accessToken, 'artist')} >
+                                    <Search />
+                                </Fab>
+                            </Paper>
+                        </Grid>
+
+                    </Grid>
+                    <br />
+                    <Grid container
+                        direction="row"
+                        alignItems="flex-start"
+                        spacing={16}>
+                        {this.renderArtistas()}
+                    </Grid>
+
+                </div >
+                :
+                <Grid container justify='center'>
+                    <Grid item xs={10} sm={6} md={3} style={{ paddingTop: 30 }}>
+                        <Card  >
+                            <CardActionArea>
+                                <img src={logo} style={{ width: '100%' }} />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="h2" noWrap style={{ textAlign: 'center' }}>
+                                        Bem-vindo
+                                        </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                            <CardActions style={{ position: 'relative', left: '35%' }}>
+                                <Button size="large" color="primary" onClick={() => location.href = 'https://search-spotify-backend.herokuapp.com/login'}>
+                                    Login
+                                </Button>
+                            </CardActions>
+                        </Card>
                     </Grid>
                 </Grid>
-                <Grid container spacing={16}>
-                    
-                    <Grid item xs={12} style={{ flexGrow: 1 }} >
-                        <p>{this.state.user.name}</p>
-                    </Grid>
-                    {/* <ul>
-                            {this.props.artistas.artistas.map(item => {
-                                console.log(item)
-                                return <li key={item.id}>{item.name}</li>
-                            })}
-                        </ul> */}
-
-                    {this.renderArtistas()}
-
-
-                </Grid>
-            </div>
 
 
         )
     }
 }
+Home.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
 
-const mapStateToProps = state => ({ search: state.search, artistas: state.artistas })
+const mapStateToProps = state => ({ search: state.search, dadosApi: state.dadosApi.dados })
 const mapDispatchToProps = dispatch => bindActionCreators({ searchChanged, searchArtista }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home))

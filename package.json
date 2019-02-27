@@ -45,7 +45,6 @@
     "redux-promise": "0.6.0",
     "redux-thunk": "2.3.0",
     "sass-loader": "7.0.1",
-    "spotify-web-api-js": "^1.2.0",
     "style-loader": "0.21.0",
     "uglifyjs-webpack-plugin": "1.2.5",
     "webpack": "4.8.1",

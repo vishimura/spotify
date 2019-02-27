@@ -6,6 +6,7 @@ import '../assets/dependencies'
 
 
 import Head from '../common/head'
+import Home from '../home/home'
 
 const theme = createMuiTheme({
   palette: {
@@ -32,7 +33,7 @@ export default props => (
     <MuiThemeProvider theme={theme}>
       <div>
         <Head />
-        {props.children}
+        <Home />
       </div>
     </MuiThemeProvider>
 )
