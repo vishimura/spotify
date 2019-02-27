@@ -1,8 +1,5 @@
 const URL = 'https://api.spotify.com/v1/search?'
 
-
-
-
 export const searchApi = (searchText, accessToken, filtro) => {
     
     return dispatch => {
@@ -23,9 +20,9 @@ const escolherAcao = (dispatch, data, filtro) => {
     if (filtro === 'artist') 
         dispatch({ type: 'LIST_ARTISTS', payload: data })
     else if (filtro == 'album')
-        dispatch({ type: 'LIST_ALBUM', payload: data })
+        dispatch({ type: 'LIST_ALBUMS', payload: data })
     else if (filtro == 'track')
-        dispatch({ type: 'LIST_TRACK', payload: data })
+        dispatch({ type: 'LIST_TRACKS', payload: data })
 }
 
 export const searchAlbumById = (id, accessToken) => {
@@ -41,8 +38,6 @@ export const searchAlbumById = (id, accessToken) => {
         )
     }
 }
-
-
 
 export const searchTracksById = (id, accessToken) => {
     return dispatch => {

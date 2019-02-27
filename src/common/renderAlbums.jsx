@@ -39,16 +39,6 @@ class RenderAlbums extends Component {
     handleClose() {
         this.setState({ open: false });
     }
-    criterioPopularity(popularidade) {
-        if (popularidade > 80)
-            return 'Hot'
-        else if (popularidade > 60)
-            return 'Cool'
-        else if (popularidade > 30)
-            return 'Regular'
-        else
-            return 'Underground'
-    }
     getUrlImage(images) {
         let url = images.url
         return url
@@ -130,6 +120,6 @@ class RenderAlbums extends Component {
     }
 }
 
-const mapStateToProps = state => ({ dialog: state.dadosApi.openDialog, tracks: state.dadosApi.tracks, dadosApi: state.dadosApi.dados, albums: state.dadosApi.albums })
+const mapStateToProps = state => ({ dialog: state.dadosApi.openDialog, tracks: state.dadosApi.tracksById, dadosApi: state.dadosApi.dados, albums: state.dadosApi.albums })
 const mapDispatchToProps = dispatch => bindActionCreators({ searchTracksById }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(RenderAlbums)

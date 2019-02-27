@@ -24,6 +24,7 @@ import logo from '../assets/imgs/logo.png'
 
 import RenderArtistas from '../common/renderArtistas'
 import RenderAlbums from '../common/renderAlbums'
+import RenderTracks from '../common/renderTracks'
 
 const styles = theme => ({
     fab: {
@@ -106,7 +107,10 @@ class Home extends Component {
                         >
                         {/* Lista os artistas pesquisados */}
                         <RenderArtistas token={this.state.accessToken}/>
+                        {/* Lista os albums pesquisados */}
                         <RenderAlbums token={this.state.accessToken} />
+                        {/* Lista as faixas pesquisadas */}
+                        <RenderTracks />
 
                     </Grid>
                     </Grid>
