@@ -7,9 +7,9 @@ import Typography from '@material-ui/core/Typography';
 
 export default props => (
     <div>
-        <AppBar position="static" color="#1ED760">
-            <Toolbar>
-                <Typography variant="h5" color="primary">
+        <AppBar position="static" >
+            <Toolbar >
+                <Typography variant="h5" color="default">
                     Spotify
                     </Typography>
             </Toolbar>

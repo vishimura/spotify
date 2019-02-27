@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
+import search from '../store/searchReducers'
+import artistas from  '../store/artistasReducers'
+
 const rootReducer = combineReducers({
     exemple: () => ({
         description: 'Ler livro',
@@ -14,6 +17,8 @@ const rootReducer = combineReducers({
             done: false
         }]
     }),
+    search: search,
+    artistas: artistas,
     form: formReducer 
 })
 
