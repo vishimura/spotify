@@ -20,17 +20,18 @@ import Search from '@material-ui/icons/Search';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import noImage from '../assets/imgs/spotify.png'
 import logo from '../assets/imgs/logo.png'
+
+import RenderArtistas from '../common/renderArtistas'
 
 const styles = theme => ({
     fab: {
-      margin: theme.spacing.unit,
+        margin: theme.spacing.unit,
     },
     extendedIcon: {
-      marginRight: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
     },
-  });
+});
 
 class Home extends Component {
 
@@ -76,49 +77,7 @@ class Home extends Component {
         //     })
         // )
     }
-    criterioPopularity(popularidade) {
-        if (popularidade > 80)
-            return 'Hot'
-        else if (popularidade > 60)
-            return 'Cool'
-        else if (popularidade > 30)
-            return 'Regular'
-        else
-            return 'Underground'
-    }
-    getUrlImage(images) {
-        let url = images.url
-        return url
-    }
-    renderArtistas() {
-
-        const list = this.props.dadosApi || []
-        const render = list.map(item => {
-            return (
-                <Grid item xs={12} sm={4} md={4} lg={3} key={item.id}>
-                    <Card>
-                        <CardActionArea>
-                            <img src={item.images[0] ? this.getUrlImage(item.images[0]) : noImage} style={{ width: '100%' }} />
-
-
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="h2" noWrap>
-                                    {item.name}
-                                </Typography>
-                                <Typography component="p">
-                                    <b>Genêro: </b>{item.genres ? item.genres.map(genero => `${genero}, `) : ''}
-                                    <br />
-                                    <b>Popularidade: </b>{`${item.popularity} - ${this.criterioPopularity(item.popularity)}`}
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-            )
-        }
-        )
-        return render
-    }
+    
     render() {
         const { classes } = this.props;
         return (
@@ -131,7 +90,7 @@ class Home extends Component {
                                 <Typography variant='title' align='center'>
                                     Pesquisar
                                 </Typography>
-                                
+
                                 <TextField
                                     id="filtro"
                                     label="Filtro"
@@ -154,13 +113,18 @@ class Home extends Component {
 
                     </Grid>
                     <br />
+                    <Grid container justify="center">
+
                     <Grid container
                         direction="row"
-                        alignItems="flex-start"
-                        spacing={16}>
-                        {this.renderArtistas()}
-                    </Grid>
+                        spacing={8}
+                        style={{width: '80%'}}
+                        >
+                        {/* Lista os artistas pesquisados */}
+                        <RenderArtistas token={this.state.accessToken}/>
 
+                    </Grid>
+                    </Grid>
                 </div >
                 :
                 <Grid container justify='center'>
@@ -189,7 +153,7 @@ class Home extends Component {
 }
 Home.propTypes = {
     classes: PropTypes.object.isRequired,
-  };
+};
 
 const mapStateToProps = state => ({ search: state.search, dadosApi: state.dadosApi.dados })
 const mapDispatchToProps = dispatch => bindActionCreators({ searchChanged, searchArtista }, dispatch)

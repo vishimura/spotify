@@ -20,11 +20,24 @@ export const searchArtista = (searchText, accessToken, filtro) => {
 const escolherAcao = (dispatch, data, filtro) => {
 
     if (filtro === 'artist') {
-        console.log('aqui')
         dispatch({ type: 'LIST_ARTISTS', payload: data })
     }
     else if (filtro == 'album')
         dispatch({ type: 'LIST_ALBUM', payload: data })
     else if (filtro == 'track')
         dispatch({ type: 'LIST_TRACK', payload: data })
+}
+
+export const searchAlbumById = (id, accessToken) => {
+    return dispatch => {
+        fetch(`https://api.spotify.com/v1/artists/${id}/albums?market=ES&limit=5`, {
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(data => dispatch(({ type: 'ALBUMS_BY_ID', payload: data.items }))
+        )
+    }
 }
