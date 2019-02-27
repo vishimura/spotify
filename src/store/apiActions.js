@@ -3,7 +3,8 @@ const URL = 'https://api.spotify.com/v1/search?'
 
 
 
-export const searchArtista = (searchText, accessToken, filtro) => {
+export const searchApi = (searchText, accessToken, filtro) => {
+    
     return dispatch => {
         fetch(`${URL}q=${searchText}&type=${filtro}`, {
             headers: {
@@ -19,9 +20,8 @@ export const searchArtista = (searchText, accessToken, filtro) => {
 
 const escolherAcao = (dispatch, data, filtro) => {
 
-    if (filtro === 'artist') {
+    if (filtro === 'artist') 
         dispatch({ type: 'LIST_ARTISTS', payload: data })
-    }
     else if (filtro == 'album')
         dispatch({ type: 'LIST_ALBUM', payload: data })
     else if (filtro == 'track')
@@ -38,6 +38,22 @@ export const searchAlbumById = (id, accessToken) => {
             }
         }).then(response => response.json())
             .then(data => dispatch(({ type: 'ALBUMS_BY_ID', payload: data.items }))
+        )
+    }
+}
+
+
+
+export const searchTracksById = (id, accessToken) => {
+    return dispatch => {
+        fetch(`https://api.spotify.com/v1/albums/${id}/tracks`, {
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(data => dispatch(({ type: 'TRACKS_BY_ID', payload: data.items }))
         )
     }
 }

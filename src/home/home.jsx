@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import queryString from 'query-string'
 
-import { searchChanged } from '../store/homeActions'
-import { searchArtista } from '../store/artistasActions'
+import { searchChanged, filtroChanged } from '../store/homeActions'
+import { searchApi } from '../store/apiActions'
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -23,6 +23,7 @@ import { withStyles } from '@material-ui/core/styles';
 import logo from '../assets/imgs/logo.png'
 
 import RenderArtistas from '../common/renderArtistas'
+import RenderAlbums from '../common/renderAlbums'
 
 const styles = theme => ({
     fab: {
@@ -56,26 +57,6 @@ class Home extends Component {
         }).then(response => response.json())
             .then(data => this.setState({ user: { name: data.display_name } }))
 
-        // fetch('https://api.spotify.com/v1/search?q=maria&type=artist', {
-        //     headers: {
-        //         'Authorization': 'Bearer ' + accessToken,
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //     }
-        // }).then(response => response.json())
-        //     .then(data => this.setState({
-        //         artists: data.artists.items.map(item => {
-        //             console.log(item)
-        //             return {
-        //                 id: item.id,
-        //                 name: item.name,
-        //                 popularity: item.popularity,
-        //                 genres: item.genres,
-        //                 images: item.images
-        //             }
-        //         })
-        //     })
-        // )
     }
     
     render() {
@@ -96,6 +77,9 @@ class Home extends Component {
                                     label="Filtro"
                                     margin="normal"
                                     variant="outlined"
+                                    value={this.props.search.filtro}
+                                    onChange={this.props.filtroChanged}
+
                                 />
                                 <TextField
                                     id="busca"
@@ -105,7 +89,7 @@ class Home extends Component {
                                     value={this.props.search.text}
                                     onChange={this.props.searchChanged}
                                 />
-                                <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.props.searchArtista(this.props.search.text, this.state.accessToken, 'artist')} >
+                                <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.props.searchApi(this.props.search.text, this.state.accessToken, this.props.search.filtro)} >
                                     <Search />
                                 </Fab>
                             </Paper>
@@ -122,6 +106,7 @@ class Home extends Component {
                         >
                         {/* Lista os artistas pesquisados */}
                         <RenderArtistas token={this.state.accessToken}/>
+                        <RenderAlbums token={this.state.accessToken} />
 
                     </Grid>
                     </Grid>
@@ -156,5 +141,5 @@ Home.propTypes = {
 };
 
 const mapStateToProps = state => ({ search: state.search, dadosApi: state.dadosApi.dados })
-const mapDispatchToProps = dispatch => bindActionCreators({ searchChanged, searchArtista }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ searchChanged, filtroChanged, searchApi }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home))
