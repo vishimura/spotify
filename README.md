@@ -8,6 +8,11 @@ A aplicação foi desenvolvida com ReactJS, utilizando o bundler Webpack, e o fr
 Para poder fazer as pesquisas na API do spotify é necessário ter uma conta Spotify e fazer o acesso.
 Não foi possível implementar uma dropdown (select) no campo do filtro, por esta razão será necessário digitar no campo o filtro correto, que no caso, os únicos valores funcionais são 'artist', 'album' e 'track'.
 
+# Demo
+
+Aplicação disponível em:
+https://search-spotify-front.herokuapp.com
+
 ### Instalaçao Backend
 
 Instalar as dependências.
