@@ -59,7 +59,6 @@ class Home extends Component {
             .then(data => this.setState({ user: { name: data.display_name } }))
 
     }
-    
     render() {
         const { classes } = this.props;
         return (
@@ -69,30 +68,62 @@ class Home extends Component {
                     <Grid container justify='center' style={{ paddingTop: 15 }}>
                         <Grid item xs={10}>
                             <Paper elevation={1}>
-                                <Typography variant='title' align='center'>
+                                <Typography variant='title' align='center' style={{fontSize:35, paddingTop:5}}>
                                     Pesquisar
                                 </Typography>
 
-                                <TextField
-                                    id="filtro"
-                                    label="Filtro"
-                                    margin="normal"
-                                    variant="outlined"
-                                    value={this.props.search.filtro}
-                                    onChange={this.props.filtroChanged}
+                                <Grid container style={{ flexGrow: 1 }}>
 
-                                />
-                                <TextField
-                                    id="busca"
-                                    label="Busca"
-                                    margin="normal"
-                                    variant="outlined"
-                                    value={this.props.search.text}
-                                    onChange={this.props.searchChanged}
-                                />
-                                <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.props.searchApi(this.props.search.text, this.state.accessToken, this.props.search.filtro)} >
-                                    <Search />
-                                </Fab>
+                                    <Grid item xs={12}>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justify="center"
+                                            alignItems="center"
+                                        >
+                                            <TextField
+                                                id="filtro"
+                                                label="Filtro"
+                                                margin="normal"
+                                                variant="outlined"
+                                                placeholder="Ex: 'artist', 'album', 'track'"
+                                                value={this.props.search.filtro}
+                                                onChange={this.props.filtroChanged}
+
+                                            />
+                                        </Grid>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justify="center"
+                                            alignItems="center"
+                                        >
+                                            <TextField
+                                                id="busca"
+                                                label="Busca"
+                                                margin="normal"
+                                                variant="outlined"
+                                                value={this.props.search.text}
+                                                onChange={this.props.searchChanged}
+                                            />
+                                        </Grid>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justify="center"
+                                            alignItems="center"
+                                        >
+                                            <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.props.searchApi(this.props.search.text, this.state.accessToken, this.props.search.filtro)} >
+                                                <Search />
+                                            </Fab>
+                                        </Grid>
+                                    </Grid>
+
+                                </Grid>
+
+
+
+
                             </Paper>
                         </Grid>
 
@@ -100,19 +131,19 @@ class Home extends Component {
                     <br />
                     <Grid container justify="center">
 
-                    <Grid container
-                        direction="row"
-                        spacing={8}
-                        style={{width: '80%'}}
+                        <Grid container
+                            direction="row"
+                            spacing={8}
+                            style={{ width: '80%' }}
                         >
-                        {/* Lista os artistas pesquisados */}
-                        <RenderArtistas token={this.state.accessToken}/>
-                        {/* Lista os albums pesquisados */}
-                        <RenderAlbums token={this.state.accessToken} />
-                        {/* Lista as faixas pesquisadas */}
-                        <RenderTracks />
+                            {/* Lista os artistas pesquisados */}
+                            <RenderArtistas token={this.state.accessToken} />
+                            {/* Lista os albums pesquisados */}
+                            <RenderAlbums token={this.state.accessToken} />
+                            {/* Lista as faixas pesquisadas */}
+                            <RenderTracks />
 
-                    </Grid>
+                        </Grid>
                     </Grid>
                 </div >
                 :

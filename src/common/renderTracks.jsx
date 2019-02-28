@@ -25,7 +25,7 @@ class RenderTracks extends Component {
         let hora = Math.floor(seg / 3600000)
         let min =  (seg / 60000)
         let resto = (min - Math.floor(min))*60  
-        return `${hora > 0? hora + ':': ''}${min.toFixed(0)}:${resto.toFixed(0) < 10? '0'+ resto.toFixed(0): resto.toFixed(0)} min`
+        return `${hora > 0? hora + ':': ''}${Math.floor(min)}:${resto.toFixed(0) < 10? '0'+ resto.toFixed(0): resto.toFixed(0)} min`
     }
 
     renderListTracks() {
