@@ -61,4 +61,4 @@ Acessar: http:localhost:8080
 |Persistência de dados|Não|
 |Micro animações|Não|
 |Backend on live|Ok|
-|Frontend on live|Não|
+|Frontend on live|Ok|
